@@ -19,16 +19,19 @@
             <a href="index.php">Home</a>
         </li>
         <li>
-            <a class="broken-link" href="index.php">Profile</a>
+            <a href="profilebio.php">Profile</a>
         </li>
         <li>
-            <a class="broken-link" href="index.php">Search</a>
+            <a href="search.php">Search</a>
         </li>
         <li>
             <a href="posts.php">Posts</a>
         </li>
         <li>
-            <a class="broken-link" href="index.php">Friends</a>
+            <a href="followers.php">Followers</a>
+        </li>
+        <li>
+            <a href="following.php">Following</a>
         </li>
         <li>
             <a class="broken-link" href="index.php">Blog</a>
@@ -43,7 +46,13 @@
             <a class="broken-link" href="index.php">News</a>
         </li>
         <li>
-            <a href="login.php">Login</a>
+        <?php
+            if(!isset($_SESSION["username"])){
+                echo "<a href='login.php'>Login</a>";
+            } else {
+                echo "<a href='logout.php'>Log out</a>";
+            }
+        ?>
         </li>
     </ul>
 </div>
