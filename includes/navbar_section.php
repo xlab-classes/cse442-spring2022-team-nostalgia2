@@ -34,7 +34,7 @@
             <a href="following.php">Following</a>
         </li>
         <li>
-            <a class="broken-link" href="index.php">Blog</a>
+            <a href="notifications.php">Notifications</a>
         </li>
         <li>
             <a class="broken-link" href="index.php">Saved</a>
