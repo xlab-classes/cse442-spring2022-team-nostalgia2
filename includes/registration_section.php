@@ -66,12 +66,18 @@
                                                                 "followers" => array(),
                                                                 "following" => array()
                                                             ];
+                                                            $notifQuery = $conn->prepare("INSERT INTO notifications (username, notifications) VALUES (?, ?)");
+                                                            $notifications = array();
+                                                            $notifArr = json_encode($notifications);
                                                             $jsonArr = json_encode($followers);
+                                                            $notifQuery->bind_param("ss", $username, $notifArr);
                                                             $followquery->bind_param("ss", $username, $jsonArr);
                                                             if($insquery->execute() === TRUE){
                                                                 if($followquery->execute() === TRUE){
-                                                                    $msg = "You've successfully created an account!";
-                                                                    echo '<div class="msg">'.$msg.'</div>';
+                                                                    if($notifQuery->execute() === TRUE){
+                                                                        $msg = "You've successfully created an account!";
+                                                                        echo '<div class="msg">'.$msg.'</div>';
+                                                                    }
                                                                 }
                                                             } else {
                                                                 echo "Query failed due to: " . $conn->error;
