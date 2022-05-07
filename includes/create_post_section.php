@@ -22,7 +22,7 @@
                                     Post Title:
                                     <br>
                                     <textarea class="post-title" name="post-title" placeholder="Title" maxlength="255"></textarea>
-                                    <br>   
+                                    <br>
                                     Post Body:
                                     <br>
                                     <textarea class="post-body" name="post-body" placeholder="Write your post here!" maxlength="40000"></textarea>
@@ -36,7 +36,7 @@
                                         if ($conn->connect_error) {
                                             die("Connect could not succeed due to: " . $conn->connect_error);
                                         }
-                                        
+
                                         $userid = $_SESSION["userid"];
                                         $title = $_POST["post-title"];
                                         $slug = makeSlug($title);
@@ -53,9 +53,11 @@
                                         $image = 'logo.png'; //TODO
                                         $body = $_POST["post-body"];
 
-                                        $query = "INSERT INTO posts (user_id, title, slug, views, image, body, published, created_at, updated_at) 
+                                        $query = "INSERT INTO posts (user_id, title, slug, views, image, body, published, created_at, updated_at)
                                                 VALUES('$userid', '$title', '$slug', 0, '$image', '$body', 1, now(), now())";
                                         $conn->query($query);
+                                        $event = "single_post.php?post-slug=$slug";
+                                        notifyPost($_SESSION["username"], $event);
                                         echo '<div class="msg">Post created. Check it out <a href="single_post.php?post-slug='.$slug.'">here.</a></div>';
                                     }
                                 ?>
