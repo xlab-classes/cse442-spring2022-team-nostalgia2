@@ -17,7 +17,7 @@
         <div class="content">
             <div class="row page-notifications">
                 <div class="col left w-40">
-
+                    <?php include('includes/notifications_section.php') ?>
                 </div>
                 <div class="col right">
                 </div>

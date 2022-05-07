@@ -19,6 +19,8 @@
                     die("Connect could not succeed due to: " . $conn->connect_error);
                 }
 
+                require_once('public_functions.php');
+
                 $search = $_POST["search"];
                 if(isset($search) && !empty($search)){
                     $query = $conn->prepare("SELECT * FROM users where username=?");
@@ -62,6 +64,7 @@
                                                 $followedUpdate = $conn->prepare("UPDATE followers SET followers=? where username=?");
                                                 $followedUpdate->bind_param("ss", $jsonQuery, $search);
                                                 if($followedUpdate->execute() === TRUE){
+                                                    notify($search, $currUser);
                                                     $msg = "You've followed this user!";
                                                     echo '<div class="msg">'.$msg.'</div>';
                                                 }
