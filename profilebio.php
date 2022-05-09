@@ -1,23 +1,34 @@
-<?php include('includes/head_section.php');
-include('includes/navbar_section.php');
-?>
-    <title>Nostalgia — My Profile</title>
+<?php include('includes/head_section.php') ?>
+    <title>Nostalgia — My Profile</title>   
 </head>
-<html>
-    <body>
-        <h1>SpockW's Profile</h1>
-        <img src="Profile.jpg" width=200>
-        <br>
-        <h2>Bio</h2>
-        <p>Autobiographical silliness</p>
-        <form action="" method="post">
-            Edit bio:
-            <input type=text name="t1">
-            <br>
-            <br>
-            <input type=submit name="s">
-            <?php if(isset($_POST['s'])){$a=$_POST['t1'];echo "Bio:-".$a;} ?>
-        </form>
-        <h2>Posts</h2>
-    </body>
-</html>
+<?php
+    session_start();
+    if(!isset($_SESSION["username"])){
+        header('Location: login.php');
+        exit;
+    }
+?>
+
+
+
+
+<body>
+    <div class="container">
+        <!-- navbar -->
+        <?php include('includes/navbar_section.php') ?>
+        <!-- /navbar -->
+
+        <!-- content -->
+        <div class="content followers">
+            <div class="row page-followers">
+                <div class="col left w-40">
+                    <?php include('includes/bio_section.php') ?>
+                </div>
+                <div class="col right">
+                </div>
+            </div>
+        </div>
+        <!-- /content -->
+
+        <!-- footer -->
+        <?php include('includes/footer_section.php') ?>
