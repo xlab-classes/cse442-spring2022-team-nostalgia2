@@ -6,7 +6,7 @@
                 die("Connect could not succeed due to: " . $conn->connect_error);
             }
             $currUser = $_SESSION["username"];
-            echo "<div class=heading>".$currUser."</div>";
+            echo "<h1>".$currUser."'s Profile Page </h1>";
             
             echo "BIO:";
             $getbio = $conn->prepare("SELECT * FROM bios where username=?");
@@ -35,8 +35,8 @@
                 }
                 require_once('public_functions.php');
                 $newbio = $_POST["newbio"];
-                $updatebio = $conn->prepare("INSERT INTO bios (username, bio) VALUES (?, ?)");
-                $updatebio->bind_param("ss",$currUser, $newbio);
+                $updatebio = $conn->prepare("UPDATE bios SET bio=? where username=?");
+                $updatebio->bind_param("ss",$newbio,$currUser);
                 if($updatebio->execute() === TRUE){
                     echo "Updated!";
                 } 

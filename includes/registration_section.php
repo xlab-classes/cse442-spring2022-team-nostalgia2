@@ -72,14 +72,20 @@
                                                             $jsonArr = json_encode($followers);
                                                             $notifQuery->bind_param("ss", $username, $notifArr);
                                                             $followquery->bind_param("ss", $username, $jsonArr);
+                                                            $bioQuery = $conn->prepare("INSERT INTO bios (username, bio) VALUES (?,?)");
+                                                            $default_bio = "Hello! Welcome to my page";
+                                                            $bioQuery->bind_param("ss",$username, $default_bio);
                                                             if($insquery->execute() === TRUE){
                                                                 if($followquery->execute() === TRUE){
                                                                     if($notifQuery->execute() === TRUE){
-                                                                        $msg = "You've successfully created an account!";
-                                                                        echo '<div class="msg">'.$msg.'</div>';
+                                                                        if($bioQuery->execute()===TRUE){
+                                                                            $msg = "You've successfully created an account!";
+                                                                            echo '<div class="msg">'.$msg.'</div>';
+                                                                        }
                                                                     }
                                                                 }
-                                                            } else {
+                                                            }
+                                                            else {
                                                                 echo "Query failed due to: " . $conn->error;
                                                             }
                                                         }
