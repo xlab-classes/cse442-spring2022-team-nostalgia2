@@ -36,7 +36,7 @@
                 require_once('public_functions.php');
                 $newbio = $_POST["newbio"];
                 $updatebio = $conn->prepare("INSERT INTO bios (username, bio) VALUES (?, ?)");
-                $updatebio->bind_param("s",$newbio);
+                $updatebio->bind_param("ss",$currUser, $newbio);
                 if($updatebio->execute() === TRUE){
                     echo "Updated!";
                 } 
