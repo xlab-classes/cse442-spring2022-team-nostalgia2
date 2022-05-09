@@ -287,7 +287,7 @@ textarea {
 }
 
 /* POSTS */
-.create-post-btn {
+.create-post-btn, .update-post-btn {
 	background: var(--logo);
 	color: var(--text-color);
 	margin: 10px;
