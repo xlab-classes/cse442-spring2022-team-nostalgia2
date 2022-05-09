@@ -33,17 +33,16 @@
                 if ($conn->connect_error) {
                     die("Connect could not succeed due to: " . $conn->connect_error);
                 }
-            }
-
-            require_once('public_functions.php');
-            $newbio = $_POST["newbio"];
-            $updatebio = $conn->prepare("INSERT INTO bios (username, bio) VALUES (?, ?)");
-            $updatebio->bind_param("s",$newbio);
-
-            if($updatebio->execute() === TRUE){
-                echo "Updated!";
-            } else {
-                echo "Fail" . $conn->error;
+                require_once('public_functions.php');
+                $newbio = $_POST["newbio"];
+                $updatebio = $conn->prepare("INSERT INTO bios (username, bio) VALUES (?, ?)");
+                $updatebio->bind_param("s",$newbio);
+                if($updatebio->execute() === TRUE){
+                    echo "Updated!";
+                } 
+                else {
+                    echo "Fail" . $conn->error;
+                }
             }
         ?>
 </div>
