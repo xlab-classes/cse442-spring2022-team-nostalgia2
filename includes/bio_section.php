@@ -6,7 +6,7 @@
                 die("Connect could not succeed due to: " . $conn->connect_error);
             }
             $currUser = $_SESSION["username"];
-            echo "<div class=heading>"$currUser"</div>";
+            echo "<div class=heading>".$currUser."</div>";
             
             echo "BIO:";
             $getbio = $conn->prepare("SELECT * FROM bios where username=?");
