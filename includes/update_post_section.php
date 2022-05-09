@@ -21,11 +21,11 @@
                                 <form method="post" enctype="multipart/form-data">
                                     Post Title:
                                     <br>
-                                    <textarea class="post-title" name="post-title" placeholder="Title" maxlength="255"></textarea>
+                                    <textarea readonly class="post-title" name="post-title" maxlength="255"><?php echo $post['title']; ?></textarea>
                                     <br>
                                     Post Body:
                                     <br>
-                                    <textarea class="post-body" name="post-body" placeholder="Write your post here!" maxlength="40000"></textarea>
+                                    <textarea class="post-body" name="post-body" maxlength="40000"><?php echo html_entity_decode($post['body']); ?></textarea>
                                     <br>
                                     <input type="submit">
                                 </form>
@@ -36,31 +36,16 @@
                                         if ($conn->connect_error) {
                                             die("Connect could not succeed due to: " . $conn->connect_error);
                                         }
-
-                                        $userid = $_SESSION["userid"];
-                                        $title = $_POST["post-title"];
-                                        $title = str_replace("'", "''", "$title");
-                                        $slug = makeSlug($title);
-
-                                        // test if slug is used, if so add number
-                                        $count = 0;
-                                        $slug_query = "SELECT * FROM posts where title='$title'";
-                                        $result = $conn->query($slug_query);
-                                        $count = $result->num_rows;
-                                        if ($count) {
-                                            $slug = $slug . '-' . $count;
-                                        }
-
-                                        $image = 'logo.png'; //TODO
+                                        
+                                        $slug = $post['slug'];
                                         $body = $_POST["post-body"];
                                         $body = str_replace("'", "''", "$body");
 
-                                        $query = "INSERT INTO posts (user_id, title, slug, views, image, body, published, created_at, updated_at)
-                                                VALUES('$userid', '$title', '$slug', 0, '$image', '$body', 1, now(), now())";
+                                        $query = "UPDATE posts SET body='$body', updated_at=now() WHERE slug='$slug' LIMIT 1";
                                         $conn->query($query);
-                                        $event = "single_post.php?post-slug=$slug";
+                                        $event = "single_post.php?post-slug='$slug'";
                                         notifyPost($_SESSION["username"], $event);
-                                        echo '<div class="msg">Post created. Check it out <a href="single_post.php?post-slug='.$slug.'">here.</a></div>';
+                                        echo '<div class="msg">Post updated. Check it out <a href="single_post.php?post-slug='.$slug.'">here.</a></div>';
                                     }
                                 ?>
                             </div> <!-- /post-textarea -->

@@ -67,6 +67,12 @@
                     <div class="card">
                         Card for tags/topics/etc if we do that later.
                     </div>
+                    
+                        <?php if ($post['user_id'] == $_SESSION["userid"]): ?>
+                            <div class="update-post-btn">
+                                <h1><a href="update_post.php?post-slug=<?php echo $post['slug']; ?>">Update Post</a></h1>
+                            </div>
+                        <?php endif ?>
                 </div>
                 <!-- /post sidebar -->
             </div>
