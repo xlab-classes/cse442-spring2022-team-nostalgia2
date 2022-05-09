@@ -39,6 +39,7 @@
 
                                         $userid = $_SESSION["userid"];
                                         $title = $_POST["post-title"];
+                                        $title = str_replace("'", "''", "$title");
                                         $slug = makeSlug($title);
 
                                         // test if slug is used, if so add number
@@ -52,6 +53,7 @@
 
                                         $image = 'logo.png'; //TODO
                                         $body = $_POST["post-body"];
+                                        $body = str_replace("'", "''", "$body");
 
                                         $query = "INSERT INTO posts (user_id, title, slug, views, image, body, published, created_at, updated_at)
                                                 VALUES('$userid', '$title', '$slug', 0, '$image', '$body', 1, now(), now())";

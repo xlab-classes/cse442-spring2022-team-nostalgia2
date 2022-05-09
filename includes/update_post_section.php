@@ -39,6 +39,7 @@
                                         
                                         $slug = $post['slug'];
                                         $body = $_POST["post-body"];
+                                        $body = str_replace("'", "''", "$body");
 
                                         $query = "UPDATE posts SET body='$body', updated_at=now() WHERE slug='$slug' LIMIT 1";
                                         $conn->query($query);
