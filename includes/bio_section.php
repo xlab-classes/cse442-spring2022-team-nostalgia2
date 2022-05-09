@@ -32,6 +32,7 @@
                 $conn = new mysqli("oceanus.cse.buffalo.edu", "elijahhu", "50284336", "cse442_2022_spring_team_d_db");
                 if ($conn->connect_error) {
                     die("Connect could not succeed due to: " . $conn->connect_error);
+                }
             }
 
             require_once('public_functions.php');
